@@ -28,10 +28,10 @@ let result = leftValue || rightValue;
 falsy values:-
 
 null
-defined 
+undefined 
 0
 false
-""  => Null Strings
+""  => null strings
 */
 
 let result4=obj||obj2;
