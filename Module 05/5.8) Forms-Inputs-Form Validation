@@ -1,0 +1,1623 @@
+# Topic 5.8: Forms, Inputs, and Form Validation in JavaScript
+
+## 1. Introduction to HTML Forms
+
+An HTML form is a section of a webpage that collects information from users.
+
+Examples:
+- Login forms
+- Registration forms
+- Contact forms
+- Feedback forms
+- Search forms
+- Payment forms
+
+HTML creates the form structure, CSS styles it, and JavaScript adds behavior such as reading values, validating input, displaying errors, and handling submission.
+
+### Simple example
+
+```html
+<form>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+
+    <button type="submit">Submit</button>
+</form>
+```
+
+**What happens here?**
+
+1. `<form>` creates the form.
+2. `<label>` describes the input.
+3. `<input>` allows the user to enter information.
+4. `name` identifies the field when form data is submitted.
+5. The submit button initiates form submission.
+
+---
+
+## 2. Understanding the Important Form Elements
+
+### 2.1 `<form>`
+
+The `<form>` element groups input controls and provides the mechanism for submitting their data.
+
+**Syntax:**
+
+```html
+<form action="/submit" method="POST">
+    <!-- Form elements -->
+</form>
+```
+
+Important attributes:
+
+| Attribute | Purpose |
+|---|---|
+| `action` | URL where the form data is submitted |
+| `method` | HTTP method, commonly `GET` or `POST` |
+| `autocomplete` | Controls whether the browser can suggest previously entered values |
+| `novalidate` | Disables the browser's automatic validation during submission |
+| `target` | Specifies where to display the response |
+
+**GET vs POST:**
+
+| GET | POST |
+|---|---|
+| Sends data in the URL query string | Sends data in the request body |
+| Useful for searches and filters | Commonly used for creating or submitting data |
+| Data is visible in the URL | Data is not placed in the URL by default |
+| Suitable for bookmarkable requests | Suitable for requests that change server-side state |
+
+Important: POST does not automatically encrypt data. Use HTTPS to protect data in transit.
+
+### 2.2 `<input>`
+
+The `<input>` element creates an interactive field that accepts different kinds of data.
+
+**Syntax:**
+
+```html
+<input type="text" id="username" name="username">
+```
+
+Common input types:
+
+| Input type | Purpose | Example |
+|---|---|---|
+| `text` | Single-line text | Username |
+| `password` | Password entry | Login password |
+| `email` | Email address | user@example.com |
+| `number` | Numeric input | Age |
+| `tel` | Telephone number | Mobile number |
+| `date` | Date selection | Date of birth |
+| `checkbox` | Select one or more options | Accept terms |
+| `radio` | Select one option from a group | Gender or plan |
+| `file` | Upload a file | Profile picture |
+| `range` | Select a value from a range | Volume |
+| `color` | Select a color | Theme color |
+| `submit` | Submit a form | Submit button |
+| `reset` | Reset form controls | Reset button |
+| `hidden` | Store a hidden form value | Record identifier |
+
+Example:
+
+```html
+<input type="text" placeholder="Enter username">
+<input type="email" placeholder="Enter email">
+<input type="password" placeholder="Enter password">
+<input type="number" placeholder="Enter age">
+```
+
+### 2.3 `<label>`
+
+A label describes an input field.
+
+```html
+<label for="email">Email Address:</label>
+<input type="email" id="email" name="email">
+```
+
+The `for` attribute must match the input's `id`.
+
+**Why use labels?**
+
+- Makes forms easier to understand.
+- Clicking the label focuses or activates its associated input.
+- Improves accessibility for people using assistive technologies.
+
+### 2.4 Buttons inside forms
+
+There are three important button types:
+
+```html
+<button type="submit">Submit</button>
+
+<button type="button">Click Me</button>
+
+<button type="reset">Reset</button>
+```
+
+| Button type | Behavior |
+|---|---|
+| `submit` | Submits the form |
+| `button` | Does nothing automatically; JavaScript can define its behavior |
+| `reset` | Resets form controls to their initial values |
+
+**Important:** A `<button>` inside a form defaults to `type="submit"` if its type is omitted. Specify the type explicitly to avoid accidental submissions.
+
+---
+
+## 3. Reading Input Values Using JavaScript
+
+One of the most important things in form handling is reading the value entered by the user.
+
+JavaScript uses the `.value` property to read or update the value of many form controls.
+
+### Example 1: Reading a text input
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+
+    <input type="text" id="username" placeholder="Enter your name">
+
+    <button type="button" id="showButton">Show Name</button>
+
+    <p id="result"></p>
+
+    <script>
+        const usernameInput = document.getElementById("username");
+        const showButton = document.getElementById("showButton");
+        const result = document.getElementById("result");
+
+        showButton.addEventListener("click", function () {
+
+            const username = usernameInput.value;
+
+            result.textContent = "Welcome " + username;
+        });
+    </script>
+
+</body>
+</html>
+```
+
+**Expected behavior:**
+
+If the user enters `Prajwal` and clicks the button:
+
+```text
+Welcome Prajwal
+```
+
+### Understanding the important line
+
+```javascript
+const username = usernameInput.value;
+```
+
+- `usernameInput` refers to the input element.
+- `.value` retrieves the current value entered by the user.
+- The retrieved value is stored in `username`.
+
+**Remember:** The `.value` of a normal text input is a string, even if the user enters digits.
+
+Example:
+
+```javascript
+const age = document.getElementById("age").value;
+
+console.log(typeof age);
+```
+
+If the input contains `21`, the output is:
+
+```text
+string
+```
+
+If you need a number, convert it:
+
+```javascript
+const age = Number(document.getElementById("age").value);
+```
+
+For numeric input, `valueAsNumber` is another option:
+
+```javascript
+const age = document.getElementById("age").valueAsNumber;
+```
+
+An empty or invalid numeric input can produce `NaN` with `valueAsNumber`.
+
+### Example 2: Updating an input value
+
+```html
+<input type="text" id="username">
+
+<button type="button" id="fillButton">Fill Name</button>
+
+<script>
+    const username = document.getElementById("username");
+    const button = document.getElementById("fillButton");
+
+    button.addEventListener("click", function () {
+        username.value = "Prajwal";
+    });
+</script>
+```
+
+When the button is clicked, the input displays `Prajwal`.
+
+**Difference:**
+
+```javascript
+input.value;              // Read the value
+input.value = "Hello";    // Change the value
+```
+
+---
+
+## 4. Reading Checkbox and Radio Button Values
+
+Text inputs are not the only controls used in forms. Checkboxes and radio buttons have different behavior.
+
+### 4.1 Checkbox — `.checked`
+
+A checkbox represents an on/off selection.
+
+```html
+<label>
+    <input type="checkbox" id="terms">
+    I accept the terms and conditions
+</label>
+
+<button type="button" id="checkButton">Check</button>
+
+<p id="result"></p>
+
+<script>
+    const terms = document.getElementById("terms");
+    const button = document.getElementById("checkButton");
+    const result = document.getElementById("result");
+
+    button.addEventListener("click", function () {
+
+        if (terms.checked) {
+            result.textContent = "Terms accepted!";
+        } else {
+            result.textContent = "Please accept the terms.";
+        }
+
+    });
+</script>
+```
+
+**Important property:**
+
+```javascript
+checkbox.checked;
+```
+
+It returns a Boolean:
+
+- `true` — checkbox is selected.
+- `false` — checkbox is not selected.
+
+### 4.2 Radio buttons
+
+Radio buttons allow the user to select one option from a group.
+
+```html
+<label>
+    <input type="radio" name="gender" value="Male">
+    Male
+</label>
+
+<label>
+    <input type="radio" name="gender" value="Female">
+    Female
+</label>
+
+<button type="button" id="showButton">Show Selection</button>
+
+<p id="result"></p>
+
+<script>
+    const button = document.getElementById("showButton");
+    const result = document.getElementById("result");
+
+    button.addEventListener("click", function () {
+
+        const selected = document.querySelector(
+            'input[name="gender"]:checked'
+        );
+
+        if (selected) {
+            result.textContent = selected.value;
+        } else {
+            result.textContent = "Please select an option.";
+        }
+
+    });
+</script>
+```
+
+**Important:**
+
+```javascript
+document.querySelector('input[name="gender"]:checked');
+```
+
+This selects the currently checked radio button in the group.
+
+The radio buttons must share the same `name` to form a group.
+
+---
+
+## 5. Form Events in JavaScript
+
+JavaScript provides events that help us respond to user interactions with form controls.
+
+### 5.1 The `input` event
+
+The `input` event fires when the user changes the value of an input through a user interaction.
+
+It is useful for:
+- Live character counts
+- Search suggestions
+- Live form feedback
+- Password strength indicators
+
+Example:
+
+```html
+<input type="text" id="username" placeholder="Enter your name">
+
+<p id="result"></p>
+
+<script>
+    const username = document.getElementById("username");
+    const result = document.getElementById("result");
+
+    username.addEventListener("input", function () {
+
+        result.textContent = "You entered: " + username.value;
+
+    });
+</script>
+```
+
+As the user types, the paragraph updates.
+
+### 5.2 The `change` event
+
+The `change` event fires when a control's value is committed. Exactly when this happens depends on the control type.
+
+For a text input, it generally fires after the value changes and the user leaves the field. For a checkbox or radio button, it fires when the selection changes.
+
+```javascript
+const email = document.getElementById("email");
+
+email.addEventListener("change", function () {
+    console.log("Email value committed:", email.value);
+});
+```
+
+### 5.3 The `submit` event
+
+The `submit` event occurs when a form is submitted.
+
+It is generally best to attach the listener to the `<form>` element rather than only to its submit button.
+
+```html
+<form id="myForm">
+
+    <input type="text" id="username" name="username">
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<script>
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        console.log("Form submitted!");
+
+    });
+</script>
+```
+
+### Why use `event.preventDefault()`?
+
+Normally, submitting a form can cause the browser to navigate to the URL in the form's `action` attribute and send the form data.
+
+When we use:
+
+```javascript
+event.preventDefault();
+```
+
+we cancel that default submission behavior.
+
+This is useful when we want JavaScript to validate the form or process the data ourselves.
+
+It does not stop event propagation.
+
+### 5.4 `focus` and `blur` events
+
+- `focus`: Fires when an element receives focus.
+- `blur`: Fires when an element loses focus.
+
+```javascript
+const username = document.getElementById("username");
+
+username.addEventListener("focus", function () {
+    console.log("Input focused");
+});
+
+username.addEventListener("blur", function () {
+    console.log("Input lost focus");
+});
+```
+
+These events are useful for showing field instructions and validating fields after the user leaves them.
+
+---
+
+## 6. What Is Form Validation?
+
+Form validation is the process of checking whether the information entered by a user meets the required rules before it is accepted or submitted.
+
+Examples:
+
+- Username should not be empty.
+- Email should have a valid email format.
+- Password should meet minimum length requirements.
+- Age should be within an allowed range.
+- Terms and conditions must be accepted.
+
+### Why is validation important?
+
+1. Prevents incomplete form submissions.
+2. Helps users correct mistakes.
+3. Improves the quality of submitted data.
+4. Improves user experience.
+5. Helps enforce application rules.
+
+There are two major forms of validation:
+
+| Client-side validation | Server-side validation |
+|---|---|
+| Runs in the browser | Runs on the server |
+| Gives users immediate feedback | Checks data before accepting or processing it |
+| Can use HTML attributes and JavaScript | Uses backend application logic |
+| Can be bypassed by users | Must enforce the actual security and business rules |
+
+**Important:** Client-side validation is not a security boundary. Always validate data on the server too.
+
+---
+
+## 7. HTML5 Built-in Form Validation
+
+HTML provides validation attributes that allow the browser to check common input requirements without writing JavaScript validation code.
+
+### 7.1 `required`
+
+Makes a field mandatory.
+
+```html
+<input type="text" name="username" required>
+```
+
+The form cannot pass normal browser validation if this field is empty.
+
+### 7.2 `minlength` and `maxlength`
+
+Control the minimum and maximum number of characters for applicable text inputs.
+
+```html
+<input
+    type="text"
+    name="username"
+    minlength="3"
+    maxlength="15"
+    required
+>
+```
+
+### 7.3 `min` and `max`
+
+Set numeric or date boundaries where supported.
+
+```html
+<input type="number" name="age" min="18" max="60">
+```
+
+### 7.4 `type="email"`
+
+Checks whether the entered value has a browser-recognized email format.
+
+```html
+<input type="email" name="email" required>
+```
+
+This does not prove that the email address exists.
+
+### 7.5 `pattern`
+
+Defines a regular expression that the input value must match.
+
+```html
+<input
+    type="text"
+    name="code"
+    pattern="[A-Z]{3}[0-9]{3}"
+    title="Enter 3 uppercase letters followed by 3 digits"
+>
+```
+
+Examples of accepted values:
+
+```text
+ABC123
+XYZ456
+```
+
+### 7.6 `step`
+
+Defines the permitted interval between values for applicable input types.
+
+```html
+<input type="number" min="0" max="10" step="2">
+```
+
+Values such as `0`, `2`, `4`, `6`, `8`, and `10` satisfy the step rule.
+
+### Complete HTML validation example
+
+```html
+<form>
+
+    <label for="username">Username:</label>
+    <input
+        type="text"
+        id="username"
+        name="username"
+        minlength="3"
+        maxlength="15"
+        required
+    >
+
+    <br><br>
+
+    <label for="email">Email:</label>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        required
+    >
+
+    <br><br>
+
+    <label for="age">Age:</label>
+    <input
+        type="number"
+        id="age"
+        name="age"
+        min="18"
+        max="60"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+```
+
+The browser performs its built-in validation when the user tries to submit the form normally.
+
+---
+
+## 8. JavaScript Form Validation
+
+HTML validation handles many common requirements. JavaScript is useful when we need custom rules and messages.
+
+For example:
+- Password and confirm-password values must match.
+- A field must contain a specific combination of characters.
+- A username must not contain spaces.
+- A custom error message must appear beside a field.
+
+### Example: Basic username validation
+
+```html
+<input type="text" id="username" placeholder="Enter username">
+
+<button type="button" id="checkButton">Validate</button>
+
+<p id="message"></p>
+
+<script>
+    const username = document.getElementById("username");
+    const button = document.getElementById("checkButton");
+    const message = document.getElementById("message");
+
+    button.addEventListener("click", function () {
+
+        const value = username.value.trim();
+
+        if (value === "") {
+            message.textContent = "Username is required.";
+        }
+        else if (value.length < 3) {
+            message.textContent = "Username must contain at least 3 characters.";
+        }
+        else {
+            message.textContent = "Username is valid!";
+        }
+
+    });
+</script>
+```
+
+### Understanding `.trim()`
+
+```javascript
+const value = username.value.trim();
+```
+
+The `trim()` method removes whitespace from the beginning and end of a string.
+
+Example:
+
+```javascript
+const name = "   Prajwal   ";
+
+console.log(name.trim());
+```
+
+Output:
+
+```text
+Prajwal
+```
+
+Why use it?
+
+Without `trim()`, a user could enter only spaces and the value would not be an empty string.
+
+---
+
+## 9. Complete Form Validation Project
+
+Let's create a registration form with the following rules:
+
+1. Name is required.
+2. Name must contain at least 3 characters.
+3. Email is required and must have a valid email format.
+4. Password must contain at least 8 characters.
+5. Confirm password must match the password.
+6. Terms and conditions must be accepted.
+7. Display clear error or success messages.
+
+### Complete runnable code
+
+Save this as `form-validation.html` and open it in your browser.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        input:not([type="checkbox"]) {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Registration Form</h2>
+
+        <form id="registrationForm" novalidate>
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name"
+                   autocomplete="name"
+                   aria-describedby="nameError">
+            <small id="nameError" class="error"></small>
+
+            <br><br>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"
+                   autocomplete="email"
+                   aria-describedby="emailError">
+            <small id="emailError" class="error"></small>
+
+            <br><br>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"
+                   autocomplete="new-password"
+                   aria-describedby="passwordError">
+            <small id="passwordError" class="error"></small>
+
+            <br><br>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword"
+                   name="confirmPassword"
+                   autocomplete="new-password"
+                   aria-describedby="confirmError">
+            <small id="confirmError" class="error"></small>
+
+            <br><br>
+
+            <label>
+                <input type="checkbox" id="terms" name="terms">
+                I accept the terms and conditions
+            </label>
+
+            <br><br>
+
+            <button type="submit">Register</button>
+
+            <p id="result" aria-live="polite"></p>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        // 1. Select the form and its input elements
+
+        const form = document.getElementById("registrationForm");
+
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+
+        const terms = document.getElementById("terms");
+
+        const result = document.getElementById("result");
+
+
+        // 2. Select error message elements
+
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const passwordError = document.getElementById("passwordError");
+        const confirmError = document.getElementById("confirmError");
+
+
+        // 3. Handle form submission
+
+        form.addEventListener("submit", function (event) {
+
+            // Prevent normal browser form submission
+            event.preventDefault();
+
+            // Clear previous messages
+            nameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            confirmError.textContent = "";
+            result.textContent = "";
+
+            // Read and clean the values
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // Track whether the form is valid
+            let isValid = true;
+
+
+            // 4. Validate name
+
+            if (name === "") {
+                nameError.textContent = "Name is required.";
+                isValid = false;
+            }
+            else if (name.length < 3) {
+                nameError.textContent =
+                    "Name must contain at least 3 characters.";
+
+                isValid = false;
+            }
+
+
+            // 5. Validate email
+
+            if (email === "") {
+                emailError.textContent = "Email is required.";
+                isValid = false;
+            }
+            else if (!emailInput.validity.valid) {
+                emailError.textContent = "Enter a valid email address.";
+                isValid = false;
+            }
+
+
+            // 6. Validate password
+
+            if (password.length < 8) {
+                passwordError.textContent =
+                    "Password must contain at least 8 characters.";
+
+                isValid = false;
+            }
+
+
+            // 7. Confirm password
+
+            if (confirmPassword === "") {
+                confirmError.textContent =
+                    "Please confirm your password.";
+
+                isValid = false;
+            }
+            else if (password !== confirmPassword) {
+                confirmError.textContent =
+                    "Passwords do not match.";
+
+                isValid = false;
+            }
+
+
+            // 8. Validate terms checkbox
+
+            if (!terms.checked) {
+                result.textContent =
+                    "Please accept the terms and conditions.";
+
+                isValid = false;
+            }
+
+
+            // 9. Display final result
+
+            if (isValid) {
+
+                result.textContent =
+                    "Registration form is valid!";
+
+                result.className = "success";
+
+                console.log("Name:", name);
+                console.log("Email:", email);
+
+            }
+            else {
+
+                result.textContent =
+                    "Please correct the errors above.";
+
+                result.className = "error";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
+```
+
+### Expected behavior
+
+**Case 1: Empty form**
+
+```text
+Name is required.
+Email is required.
+Password must contain at least 8 characters.
+Please confirm your password.
+Please accept the terms and conditions.
+```
+
+**Case 2: Passwords do not match**
+
+```text
+Passwords do not match.
+```
+
+**Case 3: All fields are valid**
+
+```text
+Registration form is valid!
+```
+
+### Understanding the execution flow
+
+When the user clicks Register:
+
+1. The browser attempts to submit the form.
+2. Because the form has `novalidate`, its automatic constraint validation is bypassed for this submission.
+3. The JavaScript `submit` listener executes.
+4. `event.preventDefault()` prevents the normal submission.
+5. Previous error messages are cleared.
+6. Input values are read.
+7. Each validation condition is checked.
+8. If any condition fails, `isValid` becomes `false`.
+9. The final condition displays either an error or success message.
+
+### Dry run
+
+Suppose the user enters:
+
+```text
+Name: Prajwal
+Email: prajwal@example.com
+Password: javascript123
+Confirm Password: javascript123
+Terms: Checked
+```
+
+| Step | Condition | Result |
+|---|---|---|
+| 1 | Is name empty? | No |
+| 2 | Is name shorter than 3 characters? | No |
+| 3 | Is email valid? | Yes |
+| 4 | Is password at least 8 characters? | Yes |
+| 5 | Do passwords match? | Yes |
+| 6 | Are terms accepted? | Yes |
+| 7 | Is `isValid` still true? | Yes |
+
+Final output:
+
+```text
+Registration form is valid!
+```
+
+**Important project note:** This is client-side validation for learning and user feedback. It does not create an account or send information to a server. A real application must validate again on the server and handle passwords securely. Never log or store raw passwords unnecessarily.
+
+---
+
+## 10. FormData API
+
+JavaScript provides the `FormData` API to collect form fields and their values.
+
+Instead of reading every input individually, you can collect the form's successful controls together.
+
+### Syntax
+
+```javascript
+const formData = new FormData(form);
+```
+
+Example:
+
+```html
+<form id="myForm">
+
+    <input type="text" name="username" value="Prajwal">
+
+    <input type="email" name="email" value="prajwal@example.com">
+
+    <button type="submit">Submit</button>
+
+</form>
+
+<script>
+
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        console.log(formData.get("username"));
+        console.log(formData.get("email"));
+
+    });
+
+</script>
+```
+
+Output:
+
+```text
+Prajwal
+prajwal@example.com
+```
+
+### Useful FormData methods
+
+| Method | Purpose |
+|---|---|
+| `get(name)` | Returns the first value for a field name |
+| `getAll(name)` | Returns all values for a field name |
+| `has(name)` | Checks whether a field name exists |
+| `set(name, value)` | Sets a value, replacing existing values for that name |
+| `append(name, value)` | Adds another value for that name |
+| `delete(name)` | Removes values for a field name |
+| `entries()` | Returns key-value pairs |
+
+### Convert FormData into an object
+
+```javascript
+const formData = new FormData(form);
+
+const data = Object.fromEntries(formData.entries());
+
+console.log(data);
+```
+
+Example output:
+
+```javascript
+{
+    username: "Prajwal",
+    email: "prajwal@example.com"
+}
+```
+
+**Important details:**
+
+- Form controls need a `name` attribute to be included.
+- Disabled controls are not included.
+- Unchecked checkboxes and radio buttons are not included.
+- Checked checkboxes are included according to their `name` and `value`.
+- File inputs produce `File` values.
+- `Object.fromEntries()` keeps only one value per property name. For repeated names, use `getAll()` or process the entries appropriately.
+
+### `form.elements`
+
+You can access the form's controls through its `elements` collection.
+
+```javascript
+const form = document.getElementById("myForm");
+
+console.log(form.elements["username"]);
+console.log(form.elements["email"]);
+```
+
+This is useful when working with multiple form controls.
+
+---
+
+## 11. Constraint Validation API
+
+HTML form controls expose properties and methods that let JavaScript inspect built-in validation rules.
+
+### 11.1 `checkValidity()`
+
+Returns `true` if the control or form satisfies its validation constraints; otherwise, it returns `false`.
+
+```javascript
+const form = document.getElementById("myForm");
+
+console.log(form.checkValidity());
+```
+
+### 11.2 `reportValidity()`
+
+Checks validity and asks the browser to display its validation feedback when constraints are not satisfied.
+
+```javascript
+form.reportValidity();
+```
+
+### 11.3 `setCustomValidity()`
+
+Allows JavaScript to set a custom validation error message.
+
+```html
+<input type="text" id="username" required>
+
+<script>
+    const username = document.getElementById("username");
+
+    username.addEventListener("input", function () {
+
+        if (username.value.trim().length < 3) {
+            username.setCustomValidity(
+                "Username must contain at least 3 characters."
+            );
+        }
+        else {
+            username.setCustomValidity("");
+        }
+
+    });
+</script>
+```
+
+**Important:** An empty string passed to `setCustomValidity("")` clears the custom validation error. If you do not clear it after the user corrects the input, the control remains invalid.
+
+### 11.4 The `validity` property
+
+The `validity` property exposes detailed information about a control's validation state.
+
+Some useful properties:
+
+| Property | Meaning |
+|---|---|
+| `valid` | Whether all constraints are satisfied |
+| `valueMissing` | Required value is missing |
+| `typeMismatch` | Value does not match the expected type |
+| `tooShort` | Value is shorter than `minlength` |
+| `tooLong` | Value exceeds `maxlength` |
+| `rangeUnderflow` | Value is below `min` |
+| `rangeOverflow` | Value is above `max` |
+| `patternMismatch` | Value does not match `pattern` |
+| `customError` | A custom validation error is set |
+
+Example:
+
+```javascript
+const email = document.getElementById("email");
+
+if (email.validity.typeMismatch) {
+    console.log("Invalid email format");
+}
+```
+
+---
+
+## 12. Important Form Concepts: `disabled` vs `readonly`
+
+These attributes may look similar, but they behave differently.
+
+| `disabled` | `readonly` |
+|---|---|
+| User cannot interact with the control | User cannot edit the value |
+| Usually cannot receive focus | Can generally receive focus |
+| Not included in form submission | Included in form submission when otherwise successful |
+| Disabled controls are barred from constraint validation | Readonly controls are barred from constraint validation |
+
+Example:
+
+```html
+<input type="text" name="username" value="Prajwal" readonly>
+
+<input type="text" name="userId" value="101" disabled>
+```
+
+When the form is submitted, the readonly username can be included, but the disabled user ID is not included.
+
+---
+
+## 13. Common Mistakes in Form Handling
+
+### Mistake 1: Using `innerHTML` for user input
+
+Incorrect:
+
+```javascript
+result.innerHTML = username.value;
+```
+
+Why avoid it?
+
+User-controlled content inserted as HTML can create cross-site scripting (XSS) vulnerabilities.
+
+Correct:
+
+```javascript
+result.textContent = username.value;
+```
+
+Use `innerHTML` only when you intentionally need to insert trusted HTML and have handled untrusted content safely.
+
+### Mistake 2: Forgetting `preventDefault()`
+
+Incorrect when handling the form entirely with JavaScript:
+
+```javascript
+form.addEventListener("submit", function () {
+    console.log("Submitted");
+});
+```
+
+The browser may navigate or reload as part of normal form submission.
+
+Correct for client-side handling:
+
+```javascript
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    console.log("Handled using JavaScript");
+});
+```
+
+You do not need to prevent the default if you intentionally want the browser to submit the form normally.
+
+### Mistake 3: Using `.value` for checkboxes
+
+Incorrect:
+
+```javascript
+if (checkbox.value) {
+    console.log("Checked");
+}
+```
+
+The `value` property represents the value submitted when the checkbox is checked. It does not tell you whether it is selected.
+
+Correct:
+
+```javascript
+if (checkbox.checked) {
+    console.log("Checked");
+}
+```
+
+### Mistake 4: Forgetting the `name` attribute
+
+```html
+<input type="text" id="username">
+```
+
+The input can still be read through JavaScript, but it will not be included in normal form submission or `FormData` under a field name.
+
+Correct:
+
+```html
+<input type="text" id="username" name="username">
+```
+
+### Mistake 5: Not trimming text input
+
+Incorrect:
+
+```javascript
+if (username.value === "") {
+    console.log("Required");
+}
+```
+
+A string containing only spaces passes this check.
+
+Better:
+
+```javascript
+if (username.value.trim() === "") {
+    console.log("Required");
+}
+```
+
+### Mistake 6: Attaching submit handling only to the button
+
+A form can be submitted by clicking its submit button or by pressing Enter in certain fields.
+
+Better:
+
+```javascript
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+});
+```
+
+### Mistake 7: Forgetting server-side validation
+
+Browser validation can be bypassed. Always validate important data on the backend before accepting it.
+
+### Mistake 8: Forgetting accessibility
+
+Do not rely only on red text or color to communicate errors. Associate labels and error messages with their inputs, and provide understandable text feedback.
+
+---
+
+## 14. Practical Use Cases
+
+| Application | Form handling and validation |
+|---|---|
+| Login page | Validate required username/email and password fields |
+| Registration page | Validate name, email, password, and confirmation |
+| Contact page | Validate name, email, and message |
+| Search page | Read search input and process the query |
+| Checkout page | Validate address and required details |
+| Feedback page | Collect ratings and comments |
+| Job application | Collect personal details and uploaded files |
+
+---
+
+## 15. Practice Exercises
+
+Try solving these without looking at the solutions first.
+
+### Exercise 1 — Read an input
+
+Create a text input and a button. When the button is clicked, display the entered value in a paragraph.
+
+**Solution:**
+
+```html
+<input type="text" id="name">
+<button type="button" id="show">Show</button>
+<p id="result"></p>
+
+<script>
+    const nameInput = document.getElementById("name");
+    const button = document.getElementById("show");
+    const result = document.getElementById("result");
+
+    button.addEventListener("click", function () {
+        result.textContent = nameInput.value;
+    });
+</script>
+```
+
+### Exercise 2 — Check a checkbox
+
+Create a checkbox for accepting terms. Display `Accepted` when selected and `Not accepted` otherwise.
+
+**Solution:**
+
+```javascript
+const terms = document.getElementById("terms");
+
+if (terms.checked) {
+    console.log("Accepted");
+} else {
+    console.log("Not accepted");
+}
+```
+
+### Exercise 3 — Validate an email
+
+Create an email input and check its validity when a button is clicked.
+
+**Solution:**
+
+```html
+<input type="email" id="email">
+<button type="button" id="check">Check</button>
+
+<script>
+    const email = document.getElementById("email");
+
+    document.getElementById("check").addEventListener("click", function () {
+
+        if (email.validity.valid && email.value !== "") {
+            console.log("Valid email");
+        } else {
+            console.log("Invalid email");
+        }
+
+    });
+</script>
+```
+
+### Exercise 4 — Password confirmation
+
+Create two password inputs. Display a message if they do not match.
+
+**Solution:**
+
+```javascript
+const password = document.getElementById("password").value;
+const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+if (password === confirmPassword) {
+    console.log("Passwords match");
+} else {
+    console.log("Passwords do not match");
+}
+```
+
+### Exercise 5 — Collect form data
+
+Create a form with name and email inputs. Use `FormData` to read both values when submitted.
+
+**Solution:**
+
+```javascript
+const form = document.getElementById("myForm");
+
+form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const data = new FormData(form);
+
+    console.log(data.get("name"));
+    console.log(data.get("email"));
+
+});
+```
+
+---
+
+## 16. Interview and Viva Questions
+
+### Q1. What is form validation?
+
+Form validation is the process of checking user-entered data against predefined rules before accepting or processing it.
+
+### Q2. What is the difference between client-side and server-side validation?
+
+Client-side validation takes place in the browser and provides immediate feedback. Server-side validation takes place on the server and enforces the application's actual data and security rules.
+
+### Q3. What is the purpose of the `value` property?
+
+The `value` property is used to read or update the current value of a form control.
+
+### Q4. What is the difference between `value` and `checked`?
+
+`value` represents a control's value, while `checked` indicates whether a checkbox or radio button is selected.
+
+### Q5. What is the difference between `input` and `change` events?
+
+The `input` event generally fires as the user edits a value. The `change` event fires when a change is committed; its timing depends on the control type.
+
+### Q6. What is the submit event?
+
+The submit event is fired on a form when a submission is initiated.
+
+### Q7. Why is `preventDefault()` used?
+
+It cancels the browser's default action for an event. In form handling, it is commonly used to prevent normal submission while JavaScript processes the form.
+
+### Q8. What is the `required` attribute?
+
+It makes a form control mandatory for normal constraint validation.
+
+### Q9. What is the difference between `minlength` and `maxlength`?
+
+`minlength` specifies the minimum number of characters, while `maxlength` specifies the maximum number of characters for applicable text controls.
+
+### Q10. What is FormData?
+
+FormData is a browser API that collects key-value pairs from a form's successful controls. It can be used to prepare data for submission.
+
+### Q11. What is `checkValidity()`?
+
+It checks whether a form or control satisfies its validation constraints and returns a Boolean.
+
+### Q12. What is `reportValidity()`?
+
+It checks validity and asks the browser to display validation feedback when constraints are not satisfied.
+
+### Q13. What is `setCustomValidity()`?
+
+It sets a custom validation error message on a form control. Passing an empty string clears the custom error.
+
+### Q14. Why is the `name` attribute important?
+
+It provides the field name used when form data is submitted and when values are collected through FormData.
+
+### Q15. Can client-side validation guarantee secure data?
+
+No. Client-side validation can be bypassed. Important data must always be validated on the server.
+
+### Q16. What is the difference between disabled and readonly?
+
+Disabled controls cannot normally be interacted with and are excluded from form submission. Readonly controls cannot be edited but can generally receive focus and are included in form submission.
+
+### Q17. Why should we use `textContent` instead of `innerHTML` for user input?
+
+`textContent` treats user input as text. Inserting untrusted input through `innerHTML` can cause XSS vulnerabilities.
+
+### Q18. What happens if a form contains a submit button without an explicit type?
+
+A button inside a form defaults to `type="submit"`.
+
+---
+
+## 17. Quick Revision Sheet
+
+| Concept | Remember |
+|---|---|
+| `form` | Groups form controls and handles submission |
+| `input.value` | Reads or changes the current value |
+| `input.checked` | Checks checkbox/radio selection |
+| `input` event | Responds as the user edits |
+| `change` event | Responds when a change is committed |
+| `submit` event | Handles form submission |
+| `preventDefault()` | Cancels the event's default action |
+| `required` | Makes a control mandatory |
+| `minlength` | Minimum text length |
+| `maxlength` | Maximum text length |
+| `min` / `max` | Value boundaries |
+| `pattern` | Regular expression constraint |
+| `FormData` | Collects form values |
+| `checkValidity()` | Checks constraints |
+| `reportValidity()` | Checks and displays browser feedback |
+| `setCustomValidity()` | Sets a custom validation message |
+| `trim()` | Removes leading and trailing whitespace |
+| `textContent` | Safely displays user-provided text |
+
+### Important rules to remember
+
+1. Use `.value` for text and many other input values.
+2. Use `.checked` for checkbox and radio selection state.
+3. Attach the `submit` listener to the form.
+4. Use `preventDefault()` when handling submission yourself.
+5. Use `trim()` when checking whether text is empty.
+6. Use `name` attributes for form submission and FormData.
+7. Use HTML validation for common constraints.
+8. Use JavaScript for custom validation rules.
+9. Use `textContent` for displaying untrusted text.
+10. Always validate important data on the server.
+
+### Final revision checklist
+
+- [ ] I understand the purpose of HTML forms.
+- [ ] I understand common input types.
+- [ ] I can read and update input values.
+- [ ] I understand `.checked`.
+- [ ] I understand `input`, `change`, and `submit` events.
+- [ ] I can use `preventDefault()`.
+- [ ] I understand HTML validation attributes.
+- [ ] I can write custom JavaScript validation.
+- [ ] I can collect data using FormData.
+- [ ] I understand the difference between client-side and server-side validation.
+
+---
+
+## 18. What Comes Next?
+
+**Topic 5.9 — DOM Manipulation Mini-Project**
+
+We will combine the concepts from Module 5 to build an interactive project involving:
+- Selecting and updating DOM elements
+- Creating and removing elements
+- Handling events
+- Event delegation
+- Reading form values
+- Validating user input
+- Updating the interface dynamically
+
+The goal is to use the DOM concepts together rather than treating them as separate pieces of syntax.
+
+**End of Topic 5.8 — Forms, Inputs, and Form Validation.**
