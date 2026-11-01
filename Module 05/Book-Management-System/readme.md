@@ -5,7 +5,7 @@ A simple and interactive **Book Management System** built using **HTML, CSS, and
 ## Features
 
 - **Add Books:** Enter a book name and price to add a new book.
-- **Display Books:** View all added books in a structured table.
+- **Display Books:** View all added books in a structured table..
 - **Edit Books:** Update the name and price of an existing book.
 - **Delete Books:** Remove unwanted books from the list.
 - **Total Books:** Automatically display the total number of books.
