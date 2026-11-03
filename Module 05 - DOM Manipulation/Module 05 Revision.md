@@ -1143,4 +1143,3 @@ Before moving to the next module, make sure you can explain and use these concep
 
 **DOM Manipulation is the process of using JavaScript to select, access, modify, create, remove, and respond to HTML elements dynamically through the browser's Document Object Model.**
 
-**Important learning reminder:** DOM manipulation is not just about changing HTML. It combines JavaScript fundamentals, functions, arrays, objects, events, and browser APIs to create interactive web applications.
