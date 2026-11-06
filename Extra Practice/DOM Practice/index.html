@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation Practice Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header id="mainHeader" class="header">
+        <h1 id="pageTitle">DOM Manipulation Lab</h1>
+        <p class="subtitle">Practice JavaScript DOM Operations</p>
+
+        <nav id="mainNav">
+            <a href="#profile">Profile</a>
+            <a href="#skills">Skills</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+
+    <main class="container">
+
+        <!-- SECTION 1: PROFILE -->
+        <section id="profile" class="card">
+
+            <h2 class="section-title">Student Profile</h2>
+
+            <div id="profileDetails" class="profile-details">
+
+                <h3 id="studentName">Prajwal Gadge</h3>
+
+                <p class="student-info">
+                    Course: Computer Engineering
+                </p>
+
+                <p class="student-info">
+                    College: Engineering College
+                </p>
+
+                <p class="student-info">
+                    Year: Final Year
+                </p>
+
+            </div>
+
+            <button id="changeNameBtn">Change Name</button>
+            <button id="hideProfileBtn">Hide Profile</button>
+            <button id="showProfileBtn">Show Profile</button>
+
+        </section>
+
+
+        <!-- SECTION 2: SKILLS -->
+        <section id="skills" class="card">
+
+            <h2 class="section-title">My Skills</h2>
+
+            <div id="skillContainer">
+
+                <span class="skill">HTML</span>
+                <span class="skill">CSS</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">Java</span>
+                <span class="skill">SQL</span>
+
+            </div>
+
+            <button id="addSkillBtn">Add Skill</button>
+            <button id="removeSkillBtn">Remove Last Skill</button>
+
+        </section>
+
+
+        <!-- SECTION 3: TASK LIST -->
+        <section id="tasks" class="card">
+
+            <h2 class="section-title">My Tasks</h2>
+
+            <ul id="taskList" class="task-list">
+
+                <li class="task">Learn HTML</li>
+                <li class="task">Learn CSS</li>
+                <li class="task">Learn JavaScript</li>
+                <li class="task">Practice DOM</li>
+
+            </ul>
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter a new task"
+            >
+
+            <button id="addTaskBtn">Add Task</button>
+            <button id="clearTasksBtn">Clear All Tasks</button>
+
+        </section>
+
+
+        <!-- SECTION 4: FORM -->
+        <section id="contact" class="card">
+
+            <h2 class="section-title">Contact Form</h2>
+
+            <form id="contactForm">
+
+                <div class="form-group">
+                    <label for="username">Name</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        placeholder="Enter your age"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+
+                    <select id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="agreement">
+                        Accept Terms and Conditions
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Choose your learning mode</label>
+
+                    <label>
+                        <input type="radio" name="mode" value="online">
+                        Online
+                    </label>
+
+                    <label>
+                        <input type="radio" name="mode" value="offline">
+                        Offline
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+
+                    <textarea
+                        id="message"
+                        placeholder="Write something..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    Submit Form
+                </button>
+
+                <button type="reset">
+                    Reset Form
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SECTION 5: TABLE -->
+        <section id="tableSection" class="card">
+
+            <h2 class="section-title">Student Records</h2>
+
+            <table id="studentTable">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>Rahul</td>
+                        <td>Java</td>
+                        <td>85</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Amit</td>
+                        <td>Python</td>
+                        <td>90</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Priya</td>
+                        <td>SQL</td>
+                        <td>88</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- SECTION 6: ATTRIBUTES -->
+        <section id="attributeSection" class="card">
+
+            <h2 class="section-title">Attribute Practice</h2>
+
+            <img
+                id="sampleImage"
+                src="https://placehold.co/250x140?text=DOM+Practice"
+                alt="Sample DOM image"
+                width="250"
+                data-category="practice"
+            >
+
+            <br><br>
+
+            <a
+                id="sampleLink"
+                href="https://developer.mozilla.org/"
+                target="_blank"
+                title="Visit MDN"
+            >
+                Visit MDN
+            </a>
+
+            <br><br>
+
+            <button id="attributeBtn" class="primary-btn" data-status="inactive">
+                Attribute Button
+            </button>
+
+        </section>
+
+
+        <!-- SECTION 7: NESTED ELEMENTS -->
+        <section id="nestedSection" class="card">
+
+            <h2 class="section-title">DOM Traversal Practice</h2>
+
+            <div id="parentBox" class="parent-box">
+
+                <div class="child-box" id="childOne">
+                    Child One
+
+                    <span class="grandchild" id="grandchildOne">
+                        Grandchild One
+                    </span>
+                </div>
+
+                <div class="child-box" id="childTwo">
+                    Child Two
+                </div>
+
+                <div class="child-box" id="childThree">
+                    Child Three
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 8: EVENT PRACTICE -->
+        <section id="eventSection" class="card">
+
+            <h2 class="section-title">Event Handling Practice</h2>
+
+            <button id="clickBtn">Click Me</button>
+
+            <button id="doubleClickBtn">Double Click Me</button>
+
+            <input
+                type="text"
+                id="eventInput"
+                placeholder="Type something here"
+            >
+
+            <p id="eventOutput">Event output will appear here.</p>
+
+            <div id="hoverBox" class="hover-box">
+                Hover Over Me
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 9: OUTPUT -->
+        <section id="outputSection" class="card">
+
+            <h2 class="section-title">DOM Output</h2>
+
+            <div id="outputBox">
+                Your JavaScript output will appear here.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer id="mainFooter">
+        <p>DOM Manipulation Practice Lab</p>
+    </footer>
+
+
+    <script src="script1.js"></script>
+    <script src="script2.js"></script>
+    <script src="script3.js"></script>
+    <script src="script4.js"></script>
+    <script src="script5.js"></script>
+
+</body>
+</html>
