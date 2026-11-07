@@ -1,4 +1,4 @@
-
+![Image](https://scaler.com/topics/images/example-of-query-selector.webp)
 # JavaScript DOM: querySelector() and querySelectorAll()
 
 ## 1. Introduction
