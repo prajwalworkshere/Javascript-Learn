@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Manipulation Practice</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>JavaScript DOM Manipulation</h1>
+        <p>Practice DOM methods with examples</p>
+    </header>
+
+    <main>
+
+        <!-- SECTION 1: CONTENT MANIPULATION -->
+        <section>
+            <h2>1. Content Manipulation</h2>
+
+            <div id="contentBox">
+                <h3 id="heading">Original Heading</h3>
+                <p id="paragraph">This is the original paragraph.</p>
+            </div>
+
+            <button id="textContentBtn">Change textContent</button>
+            <button id="innerTextBtn">Change innerText</button>
+            <button id="innerHTMLBtn">Change innerHTML</button>
+        </section>
+
+
+        <!-- SECTION 2: ATTRIBUTE MANIPULATION -->
+        <section>
+            <h2>2. Attribute Manipulation</h2>
+
+            <img
+                id="myImage"
+                src="https://placehold.co/200x120"
+                alt="Placeholder image"
+            >
+
+            <br><br>
+
+            <button id="getAttributeBtn">Get Attribute</button>
+            <button id="setAttributeBtn">Set Attribute</button>
+            <button id="removeAttributeBtn">Remove Attribute</button>
+            <button id="hasAttributeBtn">Check Attribute</button>
+        </section>
+
+
+        <!-- SECTION 3: STYLE MANIPULATION -->
+        <section>
+            <h2>3. Style Manipulation</h2>
+
+            <div id="styleBox">
+                Change my style using JavaScript!
+            </div>
+
+            <button id="changeStyleBtn">Change Style</button>
+            <button id="resetStyleBtn">Reset Style</button>
+        </section>
+
+
+        <!-- SECTION 4: CLASS MANIPULATION -->
+        <section>
+            <h2>4. Class Manipulation</h2>
+
+            <div id="classBox">
+                Practice classList methods
+            </div>
+
+            <button id="addClassBtn">Add Class</button>
+            <button id="removeClassBtn">Remove Class</button>
+            <button id="toggleClassBtn">Toggle Class</button>
+            <button id="containsClassBtn">Check Class</button>
+        </section>
+
+
+        <!-- SECTION 5: ELEMENT CREATION -->
+        <section>
+            <h2>5. Creating and Inserting Elements</h2>
+
+            <ul id="myList">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+            </ul>
+
+            <button id="createElementBtn">createElement + append</button>
+            <button id="prependBtn">Prepend Element</button>
+            <button id="beforeBtn">Insert Before</button>
+            <button id="afterBtn">Insert After</button>
+            <button id="appendChildBtn">appendChild</button>
+        </section>
+
+
+        <!-- SECTION 6: REMOVING ELEMENTS -->
+        <section>
+            <h2>6. Removing Elements</h2>
+
+            <div id="removeContainer">
+                <p id="removeParagraph">Remove this paragraph.</p>
+            </div>
+
+            <button id="removeBtn">Remove Element</button>
+            <button id="resetRemoveBtn">Restore Element</button>
+        </section>
+
+
+        <!-- SECTION 7: REPLACING ELEMENTS -->
+        <section>
+            <h2>7. Replacing Elements</h2>
+
+            <div id="replaceContainer">
+                <p id="oldElement">I am the old element.</p>
+            </div>
+
+            <button id="replaceBtn">replaceWith()</button>
+        </section>
+
+
+        <!-- SECTION 8: INPUT VALUE -->
+        <section>
+            <h2>8. Input Value Manipulation</h2>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+            >
+
+            <button id="getValueBtn">Get Value</button>
+            <button id="setValueBtn">Set Value</button>
+        </section>
+
+
+        <!-- SECTION 9: CLONING ELEMENTS -->
+        <section>
+            <h2>9. Cloning Elements</h2>
+
+            <div id="cloneContainer">
+                <p id="cloneElement">Clone this paragraph.</p>
+            </div>
+
+            <button id="cloneBtn">cloneNode()</button>
+        </section>
+
+
+        <!-- OUTPUT -->
+        <section>
+            <h2>Output / Console Messages</h2>
+            <div id="output">Your output will appear here.</div>
+            <button id="clearOutputBtn">Clear Output</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>JavaScript DOM Manipulation Practice</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
