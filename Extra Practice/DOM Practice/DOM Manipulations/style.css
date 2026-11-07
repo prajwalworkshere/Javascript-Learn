@@ -1,0 +1,156 @@
+/* GENERAL STYLING */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* HEADER */
+
+header {
+    background-color: #202c45;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    margin-bottom: 8px;
+}
+
+
+/* MAIN CONTAINER */
+
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+
+/* SECTIONS */
+
+section {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+    color: #202c45;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+
+/* BUTTONS */
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 8px 5px 0 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+
+/* CONTENT BOXES */
+
+#contentBox,
+#styleBox,
+#classBox,
+#removeContainer,
+#replaceContainer,
+#cloneContainer {
+    background-color: #eef2ff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+
+/* IMAGE */
+
+img {
+    max-width: 100%;
+    border-radius: 6px;
+}
+
+
+/* LIST */
+
+ul {
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+
+/* INPUT */
+
+input {
+    padding: 10px;
+    width: 250px;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* OUTPUT */
+
+#output {
+    background-color: #1e293b;
+    color: #86efac;
+    padding: 15px;
+    min-height: 60px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+}
+
+
+/* CLASS MANIPULATION EXAMPLE */
+
+.highlight {
+    background-color: #fef08a;
+    border: 2px solid #eab308;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.active {
+    background-color: #bbf7d0;
+    border: 2px solid #16a34a;
+}
+
+
+/* FOOTER */
+
+footer {
+    background-color: #202c45;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
